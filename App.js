@@ -25,21 +25,24 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import LoginForm from './src/components/login-form'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './src/reducers'
+import ReduxThunk from 'redux-thunk'
 
 const App = () => {
+  const store=createStore(reducers, {}, applyMiddleware(ReduxThunk))
   return (
-    <View style={styles.container}>
-      <LoginForm />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <LoginForm />
+      </View>
+    </Provider>  
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   scrollView: {
     backgroundColor: Colors.lighter,
